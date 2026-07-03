@@ -1,10 +1,11 @@
-# SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training
-
+<div align="center">
+<h1>SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training</h1> 
+<h2>ECCV 2026</h2> 
 Jingxing Li, Yongjae Lee, and Deliang Fan
 
 Arizona State University
 
-**[Paper](https://arxiv.org/abs/2603.08997)** · ECCV 2026
+**[Paper](https://arxiv.org/abs/2603.08997)** 
 
 SkipGS skips the backward pass on 3DGS training views that have already
 converged. After densification ends, the backward pass dominates iteration

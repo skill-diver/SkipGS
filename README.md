@@ -1,10 +1,10 @@
 # SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training
 
-[Jingxing Li](https://github.com/ASU-ESIC-FAN-Lab), Yongjae Lee, and Deliang Fan
+Jingxing Li, Yongjae Lee, and Deliang Fan
 
 Arizona State University
 
-**[Paper (arXiv)](https://arxiv.org/abs/2603.08997)** · ECCV 2026
+**[Paper](https://arxiv.org/abs/2603.08997)** · ECCV 2026
 
 SkipGS skips the backward pass on 3DGS training views that have already
 converged. After densification ends, the backward pass dominates iteration
@@ -79,31 +79,6 @@ Worked examples (validated on real training runs):
 [gaussian-splatting](examples/integrate_gaussian_splatting.md) ·
 [FastGS](examples/integrate_fastgs.md).
 
-## Results
-
-Mip-NeRF 360 (avg over 9 scenes). T_total = end-to-end wall-clock training
-time (s); T_post = post-densification refinement time. SkipGS does not modify
-the renderer or the Gaussian set, so rendering workload and #Gaussians are
-identical to each baseline — the speedup comes solely from reducing
-post-densification backpropagation.
-
-| Method | PSNR↑ | SSIM↑ | LPIPS↓ | T_total↓ | T_post↓ |
-|---|---|---|---|---|---|
-| Vanilla 3DGS | 27.52 | 0.816 | 0.215 | 1705.7 | 939.6 |
-| + SkipGS | 27.52 | 0.816 | 0.217 | **1311.1 (−23.1%)** | **545.0 (−42.0%)** |
-| FastGS | 27.56 | 0.798 | 0.261 | 181.9 | 87.2 |
-| + SkipGS | 27.51 | 0.797 | 0.262 | **164.5 (−9.6%)** | **69.8 (−20.0%)** |
-| Taming 3DGS | 27.94 | 0.822 | 0.207 | 1339.0 | 757.0 |
-| + SkipGS | 27.92 | 0.822 | 0.209 | **974.0 (−27.3%)** | **392.0 (−48.2%)** |
-| GaussianSpa | 27.61 | 0.826 | 0.213 | 2640.9 | 1485.0 |
-| + SkipGS | 27.60 | 0.825 | 0.215 | **2490.9 (−5.7%)** | **1335.0 (−10.1%)** |
-| LightGaussian | 27.49 | 0.810 | 0.230 | 240.0 | 240.0 |
-| + SkipGS | 27.46 | 0.809 | 0.231 | **204.8 (−14.7%)** | **204.8 (−14.7%)** |
-| Speedy-Splat | 27.11 | 0.799 | 0.263 | 1099.8 | 492.0 |
-| + SkipGS | 27.08 | 0.799 | 0.264 | **1030.8 (−6.3%)** | **423.0 (−14.0%)** |
-
-Same story on Deep Blending (e.g. vanilla T_post −37.6% at +0.09 PSNR) and
-Tanks&Temples (−36.8% at −0.05) — see the paper for full tables and ablations.
 
 ## API
 
@@ -116,8 +91,7 @@ Tanks&Temples (−36.8% at −0.05) — see the paper for full tables and ablati
 | `min_bwd_ratio` | `"auto"` | backward floor; float to set, `0.0` to disable |
 | `enabled` | `True` | `False` = inert, for baseline runs |
 
-That's the whole surface — everything else is fixed at the configuration all
-experiments in the paper ran with. Also there when you need it:
+Set when you need it:
 
 - `skip.state_dict()` / `load_state_dict()` — checkpointing
 - `should_skip()` + `record()` — two-call form, if you sometimes override the decision
@@ -131,12 +105,6 @@ experiments in the paper ran with. Also there when you need it:
 - `observe_visibility(mask)` / `window_visibility()` — for sparse/selective Adam:
   keeps the union of visibility masks over an accumulation window
 
-## Caveats
-
-- Saves backward + optimizer time, not forward. Speedup is bounded by your
-  backward share of the iteration (largest for expensive trainers — see the
-  Taming vs. FastGS rows above).
-- Only skips after `start_iter`; densification is untouched.
 
 ## Citation
 

@@ -141,11 +141,14 @@ experiments in the paper ran with. Also there when you need it:
 ## Citation
 
 ```bibtex
-@inproceedings{li2026skipgs,
-  title     = {SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training},
-  author    = {Li, Jingxing and Lee, Yongjae and Fan, Deliang},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year      = {2026}
+@misc{li2026skipgspostdensificationbackwardskipping,
+      title={SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training}, 
+      author={Jingxing Li and Yongjae Lee and Deliang Fan},
+      year={2026},
+      eprint={2603.08997},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2603.08997}, 
 }
 ```
 

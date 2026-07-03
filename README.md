@@ -1,11 +1,17 @@
 <div align="center">
-<h1>SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training</h1> 
-<h2>ECCV 2026</h2> 
+
+# SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training
+
+### ECCV 2026
+
 Jingxing Li, Yongjae Lee, and Deliang Fan
 
 Arizona State University
 
-**[Paper](https://arxiv.org/abs/2603.08997)** 
+[![arXiv](https://img.shields.io/badge/arXiv-2603.08997-b31b1b.svg)](https://arxiv.org/abs/2603.08997)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+</div>
 
 SkipGS skips the backward pass on 3DGS training views that have already
 converged. After densification ends, the backward pass dominates iteration
@@ -19,11 +25,19 @@ only changes *when* to backpropagate, it plugs into other efficient 3DGS
 pipelines (FastGS, Taming 3DGS, GaussianSpa, LightGaussian, Speedy-Splat) for
 additive speedups.
 
+<div align="center">
+
 ![PSNR vs. end-to-end training time on Mip-NeRF 360](assets/psnr_vs_time.png)
+
+</div>
 
 ## How it works
 
+<div align="center">
+
 ![SkipGS method overview](assets/method_diagram.png)
+
+</div>
 
 Per view, keep an EMA of the loss (updated every visit — the forward always
 runs). Current loss at/below the EMA → nothing surprising → skip the backward
@@ -80,7 +94,6 @@ Worked examples (validated on real training runs):
 [gaussian-splatting](examples/integrate_gaussian_splatting.md) ·
 [FastGS](examples/integrate_fastgs.md).
 
-
 ## API
 
 | Param | Default | |
@@ -106,21 +119,22 @@ Set when you need it:
 - `observe_visibility(mask)` / `window_visibility()` — for sparse/selective Adam:
   keeps the union of visibility masks over an accumulation window
 
-
 ## Citation
+
+If you find SkipGS useful, please cite:
 
 ```bibtex
 @misc{li2026skipgspostdensificationbackwardskipping,
-      title={SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training}, 
+      title={SkipGS: Post-Densification Backward Skipping for Efficient 3DGS Training},
       author={Jingxing Li and Yongjae Lee and Deliang Fan},
       year={2026},
       eprint={2603.08997},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2603.08997}, 
+      url={https://arxiv.org/abs/2603.08997},
 }
 ```
 
 ## License
 
-MIT.
+MIT — see [LICENSE](LICENSE).
